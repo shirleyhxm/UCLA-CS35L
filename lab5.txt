@@ -1,0 +1,165 @@
+Build old version:
+
+$ tar -xvzf coreutils-with-bug.tar.gz
+$ cd coreutils-with-bug/
+$ ./configure --prefix=‘~/cs35l/lab5/coreutils’
+$ make
+
+Error:
+In file included from utimecmp.c:41:0:
+utimens.h:2:5: error: conflicting types for 'futimens'
+ int futimens (int, char const *, struct timespec const [2]);
+     ^
+In file included from utimecmp.h:25:0,
+                 from utimecmp.c:25:
+/usr/include/sys/stat.h:374:12: note: previous declaration of 'futimens' was here
+ extern int futimens (int __fd, __const struct timespec __times[2]) __THROW;
+            ^
+
+It seems like there exists duplicated function declarations due to same function names, so calling those functions would be confusing.
+
+
+Build patched version:
+
+$ wget http://web.cs.ucla.edu/classes/fall16/cs35L/assign/coreutils.diff
+$ patch -p0 < coreutils.diff
+$ make
+
+The patch fixed the bug because it assigned different function names to those that were originally identical.
+
+
+Reproduce the bug:
+
+$ tmp=$(mktemp -d)
+$ cd $tmp
+$ touch -d '1918-11-11 11:00 GMT' wwi-armistice
+$ touch now
+$ sleep 1
+$ touch now1
+$ TZ=UTC0 ~/cs35l/lab5/coreutils-with-bug/src/ls -lt --full-time wwi-armistice now now1
+-rw-r--r-- 1 xuemin csugrad 0 1918-11-11 11:00:00.000000000 +0000 wwi-armistice
+-rw-r--r-- 1 xuemin csugrad 0 2016-10-30 15:57:17.581975926 +0000 now1
+-rw-r--r-- 1 xuemin csugrad 0 2016-10-30 15:57:12.565788423 +0000 now
+$ cd
+$ rm -rf $tmp 
+ 
+
+Use debugger to find bugs:
+
+I first used emacs to look through coreutils-with-bug/src/ls.c and see
+what functions were associated with time comparison with command:
+$ C-s time 
+
+I realized cmp_mtime calls the function timespec_cmp in lib/timespec.h,
+so I set a breakpoint at cmp_mtime to look for details.
+
+$ tmp=$(mktemp -d)
+$ cd $tmp
+$ touch -d '1918-11-11 11:00 GMT' wwi-armistice
+$ touch now
+$ sleep 1
+$ touch now1
+$ TZ=UTC0 ~/cs35l/lab5/coreutils-with-bug/src/ls -lt --full-time wwi-armistice now now1
+$ gdb ~/cs35l/lab5/coreutils-with-bug/src/ls
+(gdb) b cmp_mtime
+(gdb) run -lt --full-time wwi-armistice now now1
+...
+Breakpoint 1, compare_mtime (a=0x617180, b=0x617230) at ls.c:2884
+2884	static int compare_mtime (V a, V b) { return cmp_mtime (a, b, xstrcoll); }
+(gdb) si
+timespec_cmp (b=..., a=...) at ../lib/timespec.h:49
+49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = 1477863990
+(gdb) si
+0x0000000000404997	49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = 5
+(gdb) si
+0x000000000040499b	49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = 5
+(gdb) si
+0x000000000040499f	49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = 5
+(gdb) si
+49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = 5
+
+Everything seemed ok. Then I kept stepping in until another iteration of compare_mtime appeared.
+
+Breakpoint 1, compare_mtime (a=0x6170d0, b=0x617230) at ls.c:2884
+2884	static int compare_mtime (V a, V b) { return cmp_mtime (a, b, xstrcoll); }
+(gdb) si
+timespec_cmp (b=..., a=...) at ../lib/timespec.h:49
+49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = 1477863990
+(gdb) si
+0x0000000000404997	49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = -1203277306
+(gdb) si
+0x000000000040499b	49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = -1203277306
+(gdb) si
+0x000000000040499f	49	  return diff ? diff : a.tv_nsec - b.tv_nsec;
+(gdb) info locals
+diff = -1203277306
+
+Here, apparently diff had overflowed from subtraction,
+so the program thought that the ancient file had larger number of seconds and would thus be in the future.
+To fix this, we should compare time using < and > operators instead of subtraction.
+
+So I changed timespec_cmp in /lib/timespec.h as follows:
+
+static inline int
+timespec_cmp (struct timespec a, struct timespec b)
+{
+  if (a.tv_sec < b.tv_sec)
+    return -1;
+  else if (a.tv_sec > b.tv_sec)
+    return 1;
+  else if (a.tv_nsec < b.tv_nsec)
+    return -1;
+  else if (a.tv_nsec > b.tv_nsec)
+    return 1;
+  else
+    return 0;
+}
+
+
+Create patch lab5.diff and copy ChangeLog to beginning of the patch:
+
+$ cp ./lib/timespec.h ../timespec_orig.h
+$ (Modify timespec.h as described above)
+$ diff -u ./lib/timespec.h ../timespec_orig.h > lab5.diff
+$ emacs lab5.diff
+C-x 4 a
+2016-10-30  Xuemin He  <xuemin@lnxsrv05.seas.ucla.edu>                                                                  
+                                                                                                                        
+        * timespec.h (timespec_cmp): Avoid integer overflow                                                             
+        by direct comparison instead of subtraction. 
+(Copy the ChangeLog to the beginning of lab5.diff)
+
+
+Test on SEASnet Linux server:
+
+$ cd
+$ mkdir junk
+$ cd junk/
+$ touch -d '1918-11-11 11:00 GMT' wwi-armistice
+$ touch now
+$ sleep 1
+$ touch now1
+$ TZ=UTC0 ls -lt --full-time wwi-armistice now now1
+-rw-r--r-- 1 xuemin csugrad 0 2054-12-17 17:28:16.000000000 +0000 wwi-armistice
+-rw-r--r-- 1 xuemin csugrad 0 2016-10-30 23:27:56.294629000 +0000 now1
+-rw-r--r-- 1 xuemin csugrad 0 2016-10-30 23:27:49.181982000 +0000 now
+
+SEASnet Linux server is not doing very well with ancient files. It displays the time of ancient files and sort them as if they are in the future.
+
+

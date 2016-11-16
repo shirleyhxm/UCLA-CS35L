@@ -1,0 +1,28 @@
+Q1.
+Brady's patch removed the line "case_long_iso_time_style" because the command "goto case_long_iso_time_style" in the for loop below was removed, so it won't be accessed again. Since it won't be accessed again, removing this line is not neccessary.
+
+Q2.
+The patched version may cause problems in an environment that is not using Unix or in countries that does not rely on English-format dates.
+
+Q3.
+command: python2 randline.py /dev/null
+output:	 Traceback (most recent call last):
+  	 File "randline.py", line 70, in <module>
+    	   main()
+ 	 File "randline.py", line 64, in main
+    	   sys.stdout.write(generator.chooseline())
+  	 File "randline.py", line 34, in chooseline
+    	   return random.choice(self.lines)
+  	 File "/usr/local/cs/Python-2.7.11/lib/python2.7/random.py", line 275, in choice
+    	   return seq[int(self.random() * len(seq))]  # raises IndexError if seq is empty
+	 IndexError: list index out of range
+reason: The function "random.choice(self, seq)" requires the seq being non-empty, and it raises IndexError if seq is empty.
+
+Q4.
+command: python3 randline.py /dev/null
+output:  File "randline.py", line 65
+    	   except IOError as (errno, strerror):
+                      	     ^
+		      SyntaxError: invalid syntax
+reason: Parameters given in exceptions are iterable for python2 but not for python3.
+

@@ -1,0 +1,687 @@
+1. Grab Coreutils-7.6:
+   Go to Lab3 directory
+   wget ftp://ftp.gnu.org/gnu/coreutils/coreutils-7.6.tar.gz
+
+2. Compile and intall
+  - Unzip Coreutils_7.6:
+    tar -xvf coreutils-7.6.tar.gz
+  - Locate the Installation:
+    mkdir ~/coreutilsInstall
+  - Configure (must be absolute path):
+    ./configure --prefix=/u/cs/ugrad/xuemin/coreutilsInstall
+  - Compile:
+    make
+
+3. Reproduce bug
+  - Go to the folder inside coreutilsInstall that contains "ls"
+    cd ~/coreutilsInstall/bin/
+  - run "ls":
+    ./ls -l
+  - output:
+    total 19032
+    -rwxr-xr-x 1 xuemin csugrad 130510 2016-10-11 08:54 [
+    -rwxr-xr-x 1 xuemin csugrad 123601 2016-10-11 08:54 base64
+    -rwxr-xr-x 1 xuemin csugrad  91264 2016-10-11 08:54 basename
+    -rwxr-xr-x 1 xuemin csugrad 203778 2016-10-11 08:54 cat
+    -rwxr-xr-x 1 xuemin csugrad 240724 2016-10-11 08:54 chcon
+    -rwxr-xr-x 1 xuemin csugrad 228992 2016-10-11 08:54 chgrp
+    -rwxr-xr-x 1 xuemin csugrad 217152 2016-10-11 08:54 chmod
+    -rwxr-xr-x 1 xuemin csugrad 240340 2016-10-11 08:54 chown
+    -rwxr-xr-x 1 xuemin csugrad 120686 2016-10-11 08:54 chroot
+    -rwxr-xr-x 1 xuemin csugrad  97449 2016-10-11 08:54 cksum
+    -rwxr-xr-x 1 xuemin csugrad 114855 2016-10-11 08:54 comm
+    -rwxr-xr-x 1 xuemin csugrad 506689 2016-10-11 08:54 cp
+    -rwxr-xr-x 1 xuemin csugrad 499250 2016-10-11 08:54 csplit
+    -rwxr-xr-x 1 xuemin csugrad 162308 2016-10-11 08:54 cut
+    -rwxr-xr-x 1 xuemin csugrad 227232 2016-10-11 08:54 date
+    -rwxr-xr-x 1 xuemin csugrad 199322 2016-10-11 08:54 dd
+    -rwxr-xr-x 1 xuemin csugrad 290623 2016-10-11 08:54 df
+    -rwxr-xr-x 1 xuemin csugrad 469161 2016-10-11 08:54 dir
+    -rwxr-xr-x 1 xuemin csugrad 113356 2016-10-11 08:54 dircolors
+    -rwxr-xr-x 1 xuemin csugrad  92410 2016-10-11 08:54 dirname
+    -rwxr-xr-x 1 xuemin csugrad 451746 2016-10-11 08:54 du
+    -rwxr-xr-x 1 xuemin csugrad  94092 2016-10-11 08:54 echo
+    -rwxr-xr-x 1 xuemin csugrad  87521 2016-10-11 08:54 env
+    -rwxr-xr-x 1 xuemin csugrad 100810 2016-10-11 08:54 expand
+    -rwxr-xr-x 1 xuemin csugrad 452452 2016-10-11 08:54 expr
+    -rwxr-xr-x 1 xuemin csugrad 200003 2016-10-11 08:54 factor
+    -rwxr-xr-x 1 xuemin csugrad  85224 2016-10-11 08:54 false
+    -rwxr-xr-x 1 xuemin csugrad 120345 2016-10-11 08:54 fmt
+    -rwxr-xr-x 1 xuemin csugrad 106157 2016-10-11 08:54 fold
+    -rwxr-xr-x 1 xuemin csugrad 101979 2016-10-11 08:54 groups
+    -rwxr-xr-x 1 xuemin csugrad 141958 2016-10-11 08:54 head
+    -rwxr-xr-x 1 xuemin csugrad  89730 2016-10-11 08:54 hostid
+    -rwxr-xr-x 1 xuemin csugrad 110979 2016-10-11 08:54 id
+    -rwxr-xr-x 1 xuemin csugrad 482164 2016-10-11 08:54 install
+    -rwxr-xr-x 1 xuemin csugrad 153779 2016-10-11 08:54 join
+    -rwxr-xr-x 1 xuemin csugrad 104730 2016-10-11 08:54 kill
+    -rwxr-xr-x 1 xuemin csugrad  90099 2016-10-11 08:54 link
+    -rwxr-xr-x 1 xuemin csugrad 189219 2016-10-11 08:54 ln
+    -rwxr-xr-x 1 xuemin csugrad  89932 2016-10-11 08:54 logname
+    -rwxr-xr-x 1 xuemin csugrad 469152 2016-10-11 08:54 ls
+    -rw-r--r-- 1 xuemin csugrad    932 2016-10-11 09:23 ls_patch
+    -rw-r--r-- 1 xuemin csugrad    932 2016-10-11 09:17 ls_patch~
+    -rwxr-xr-x 1 xuemin csugrad 130369 2016-10-11 08:54 md5sum
+    -rwxr-xr-x 1 xuemin csugrad 208118 2016-10-11 08:54 mkdir
+    -rwxr-xr-x 1 xuemin csugrad 100531 2016-10-11 08:54 mkfifo
+    -rwxr-xr-x 1 xuemin csugrad 116104 2016-10-11 08:54 mknod
+    -rwxr-xr-x 1 xuemin csugrad 139380 2016-10-11 08:54 mktemp
+    -rwxr-xr-x 1 xuemin csugrad 487370 2016-10-11 08:54 mv
+    -rwxr-xr-x 1 xuemin csugrad 106658 2016-10-11 08:54 nice
+    -rwxr-xr-x 1 xuemin csugrad 461674 2016-10-11 08:54 nl
+    -rwxr-xr-x 1 xuemin csugrad 106204 2016-10-11 08:54 nohup
+    -rwxar-xr-x 1 xuemin csugrad 247566 2016-10-11 08:54 od
+    -rwxr-xr-x 1 xuemin csugrad 103955 2016-10-11 08:54 paste
+    -rwxr-xr-x 1 xuemin csugrad  99854 2016-10-11 08:54 pathchk
+    -rwxr-xr-x 1 xuemin csugrad 120342 2016-10-11 08:54 pinky
+    -rwxr-xr-x 1 xuemin csugrad 227030 2016-10-11 08:54 pr
+    -rwxr-xr-x 1 xuemin csugrad  89285 2016-10-11 08:54 printenv
+    -rwxr-xr-x 1 xuemin csugrad 208713 2016-10-11 08:54 printf
+    -rwxr-xr-x 1 xuemin csugrad 558310 2016-10-11 08:54 ptx
+    -rwxr-xr-x 1 xuemin csugrad 105099 2016-10-11 08:54 pwd
+    -rwxr-xr-x 1 xuemin csugrad 146739 2016-10-11 08:54 readlink
+    -rwxr-xr-x 1 xuemin csugrad 233202 2016-10-11 08:54 rm
+    -rwxr-xr-x 1 xuemin csugrad 165095 2016-10-11 08:54 rmdir
+    -rwxr-xr-x 1 xuemin csugrad  97105 2016-10-11 08:54 runcon
+    -rwxr-xr-x 1 xuemin csugrad 174387 2016-10-11 08:54 seq
+    -rwxr-xr-x 1 xuemin csugrad 144297 2016-10-11 08:54 sha1sum
+    -rwxr-xr-x 1 xuemin csugrad 152667 2016-10-11 08:54 sha224sum
+    -rwxr-xr-x 1 xuemin csugrad 152667 2016-10-11 08:54 sha256sum
+    -rwxr-xr-x 1 xuemin csugrad 175307 2016-10-11 08:54 sha384sum
+    -rwxr-xr-x 1 xuemin csugrad 175307 2016-10-11 08:54 sha512sum
+    -rwxr-xr-x 1 xuemin csugrad 204145 2016-10-11 08:54 shred
+    -rwxr-xr-x 1 xuemin csugrad 149929 2016-10-11 08:54 shuf
+    -rwxr-xr-x 1 xuemin csugrad 107146 2016-10-11 08:54 sleep
+    -rwxr-xr-x 1 xuemin csugrad 372282 2016-10-11 08:54 sort
+    -rwxr-xr-x 1 xuemin csugrad 229101 2016-10-11 08:54 split
+    -rwxr-xr-x 1 xuemin csugrad 178675 2016-10-11 08:54 stat
+    -rwxr-xr-x 1 xuemin csugrad 262428 2016-10-11 08:54 stdbuf
+    -rwxr-xr-x 1 xuemin csugrad 238372 2016-10-11 08:54 stty
+    -rwxr-xr-x 1 xuemin csugrad 141968 2016-10-11 08:54 sum
+    -rwxr-xr-x 1 xuemin csugrad  88229 2016-10-11 08:54 sync
+    -rwxr-xr-x 1 xuemin csugrad 441270 2016-10-11 08:54 tac
+    -rwxr-xr-x 1 xuemin csugrad 246458 2016-10-11 08:54 tail
+    -rwxr-xr-x 1 xuemin csugrad  97576 2016-10-11 08:54 tee
+    -rwxr-xr-x 1 xuemin csugrad 116277 2016-10-11 08:54 test
+    -rwxr-xr-x 1 xuemin csugrad 210331 2016-10-11 08:54 timeout
+    -rwxr-xr-x 1 xuemin csugrad 173565 2016-10-11 08:54 touch
+    -rwxr-xr-x 1 xuemin csugrad 149657 2016-10-11 08:54 tr
+    -rwxr-xr-x 1 xuemin csugrad  85223 2016-10-11 08:54 true
+    -rwxar-xr-x 1 xuemin csugrad 204288 2016-10-11 08:54 truncate
+    -rwxr-xr-x 1 xuemin csugrad 117238 2016-10-11 08:54 tsort
+    -rwxr-xr-x 1 xuemin csugrad  87608 2016-10-11 08:54 tty
+    -rwxr-xr-x 1 xuemin csugrad  94800 2016-10-11 08:54 uname
+    -rwxr-xr-x 1 xuemin csugrad 103288 2016-10-11 08:54 unexpand
+    -rwxr-xr-x 1 xuemin csugrad 140050 2016-10-11 08:54 uniq
+    -rwxr-xr-x 1 xuemin csugrad  89999 2016-10-11 08:54 unlink
+    -rwxr-xr-x 1 xuemin csugrad 153798 2016-10-11 08:54 uptime
+    -rwxr-xr-x 1 xuemin csugrad 103139 2016-10-11 08:54 users
+    -rwxr-xr-x 1 xuemin csugrad 469162 2016-10-11 08:54 vdir
+    -rwxr-xr-x 1 xuemin csugrad 145399 2016-10-11 08:54 wc
+    -rwxr-xr-x 1 xuemin csugrad 188349 2016-10-11 08:54 who
+    -rwxr-xr-x 1 xuemin csugrad  90392 2016-10-11 08:54 whoami
+    -rwxr-xr-x 1 xuemin csugrad  88930 2016-10-11 08:54 yes  
+
+4. Apply Brady's patch
+   - Copy the patched part in Brady's code and paste it to new file "patch_ls":
+     --- a/src/ls.c
+     +++ b/src/ls.c
+     @@ -2014,7 +2014,6 @@ decode_switches (int argc, char **argv)
+             break;
+ 
+	        case long_iso_time_style:
+     -          case_long_iso_time_style:
+             	long_time_format[0] = long_time_format[1] = "%Y-%m-%d %H:%M";
+             	break;
+
+     @@ -2030,13 +2029,8 @@ decode_switches (int argc, char **argv)
+                formats.  If not, fall back on long-iso format.  */
+                int i;
+     		        for (i = 0; i < 2; i++)
+     -                  {
+     -                    char const *locale_format =
+     -                      dcgettext (NULL, long_time_format[i], LC_TIME);
+     -                    if (locale_format == long_time_format[i])
+     -                      goto case_long_iso_time_style;
+     -                    long_time_format[i] = locale_format;
+     -                  }
+     +                  long_time_format[i] =
+     +                    dcgettext (NULL, long_time_format[i], LC_TIME);
+
+   - Patch:
+     Go into the coreutils-7.6 directory
+     patch -p1 < ls_patch
+     "-p1" because we want to extract the path "src/ls.c" after the first slash in "a/src/ls.c"
+
+5. Recompile:
+   - command:
+     make
+   - output:
+make  all-recursive
+make[1]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6'
+Making all in lib
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/lib'
+make  all-recursive
+make[3]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/lib'
+make[4]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/lib'
+make[4]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/lib'
+make[3]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/lib'
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/lib'
+Making all in src
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/src'
+make  all-am
+make[3]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/src'
+  CC     ls.o
+  CCLD   dir
+  CCLD   vdir
+  CCLD   ls
+make[3]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/src'
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/src'
+Making all in doc
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/doc'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/doc'
+Making all in man
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/man'
+  GEN    dir.1
+  GEN    vdir.1
+  GEN    ls.1
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/man'
+Making all in po
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/po'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/po'
+Making all in tests
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/tests'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/tests'
+Making all in gnulib-tests
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/gnulib-tests'
+make  all-recursive
+make[3]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/gnulib-tests'
+make[4]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/gnulib-tests'
+make[4]: Nothing to be done for 'all-am'.
+make[4]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/gnulib-tests'
+make[3]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/gnulib-tests'
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6/gnulib-tests'
+make[2]: Entering directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6'
+make[2]: Nothing to be done for 'all-am'.
+make[2]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6'
+make[1]: Leaving directory '/w/home.14/cs/ugrad/xuemin/cs35l/lab3/coreutils-7.6'
+
+6. Test corrected version of "ls"
+   - Go to folder that contains the corrected "ls.c"
+     cd ~/cs35l/lab3/coreutils-7.6/src/
+   - run "./ls -l"
+   - output:
+total 30060
+-rwxr-xr-x 1 xuemin csugrad 130510 Oct 11 08:50 [
+-rwxr-xr-x 1 xuemin csugrad 123601 Oct 11 08:50 base64
+-rw-r--r-- 1 xuemin csugrad   8422 Sep  1  2009 base64.c
+-rw-r--r-- 1 xuemin csugrad  40816 Oct 11 08:50 base64.o
+-rwxr-xr-x 1 xuemin csugrad  91264 Oct 11 08:50 basename
+-rw-r--r-- 1 xuemin csugrad   3787 Sep  1  2009 basename.c
+-rw-r--r-- 1 xuemin csugrad  19600 Oct 11 08:50 basename.o
+-rw-r--r-- 1 xuemin csugrad   5290 Sep  1  2009 c99-to-c89.diff
+-rwxr-xr-x 1 xuemin csugrad 203778 Oct 11 08:50 cat
+-rw-r--r-- 1 xuemin csugrad  22679 Sep  1  2009 cat.c
+-rw-r--r-- 1 xuemin csugrad  63976 Oct 11 08:50 cat.o
+-rwxr-xr-x 1 xuemin csugrad 240724 Oct 11 08:50 chcon
+-rw-r--r-- 1 xuemin csugrad  15766 Sep 10  2009 chcon.c
+-rw-r--r-- 1 xuemin csugrad  72688 Oct 11 08:50 chcon.o
+-rwxr-xr-x 1 xuemin csugrad 228992 Oct 11 08:50 chgrp
+-rw-r--r-- 1 xuemin csugrad   8864 Sep  1  2009 chgrp.c
+-rw-r--r-- 1 xuemin csugrad  35816 Oct 11 08:50 chgrp.o
+-rwxr-xr-x 1 xuemin csugrad 217152 Oct 11 08:50 chmod
+-rw-r--r-- 1 xuemin csugrad  15064 Sep 10  2009 chmod.c
+-rw-r--r-- 1 xuemin csugrad  61352 Oct 11 08:50 chmod.o
+-rwxr-xr-x 1 xuemin csugrad 240340 Oct 11 08:50 chown
+-rw-r--r-- 1 xuemin csugrad  10677 Sep  1  2009 chown.c
+-rw-r--r-- 1 xuemin csugrad  16157 Sep 10  2009 chown-core.c
+-rw-r--r-- 1 xuemin csugrad   2240 Sep  1  2009 chown-core.h
+-rw-r--r-- 1 xuemin csugrad  45104 Oct 11 08:50 chown-core.o
+-rw-r--r-- 1 xuemin csugrad  35696 Oct 11 08:50 chown.o
+-rwxr-xr-x 1 xuemin csugrad 120686 Oct 11 08:50 chroot
+-rw-r--r-- 1 xuemin csugrad   6762 Sep  1  2009 chroot.c
+-rw-r--r-- 1 xuemin csugrad  36424 Oct 11 08:50 chroot.o
+-rwxr-xr-x 1 xuemin csugrad  97449 Oct 11 08:50 cksum
+-rw-r--r-- 1 xuemin csugrad   9719 Sep  1  2009 cksum.c
+-rw-r--r-- 1 xuemin csugrad  31680 Oct 11 08:50 cksum.o
+-rwxr-xr-x 1 xuemin csugrad 114855 Oct 11 08:50 comm
+-rw-r--r-- 1 xuemin csugrad  12871 Sep  1  2009 comm.c
+-rw-r--r-- 1 xuemin csugrad  39320 Oct 11 08:50 comm.o
+-rw-r--r-- 1 xuemin csugrad  82632 Sep 10  2009 copy.c
+-rw-r--r-- 1 xuemin csugrad  10227 Sep  1  2009 copy.h
+-rw-r--r-- 1 xuemin csugrad 139216 Oct 11 08:50 copy.o
+-rwxr-xr-x 1 xuemin csugrad 506689 Oct 11 08:50 cp
+-rw-r--r-- 1 xuemin csugrad  37176 Sep  1  2009 cp.c
+-rw-r--r-- 1 xuemin csugrad   4675 Sep  1  2009 cp-hash.c
+-rw-r--r-- 1 xuemin csugrad    204 Sep  1  2009 cp-hash.h
+-rw-r--r-- 1 xuemin csugrad  14736 Oct 11 08:50 cp-hash.o
+-rw-r--r-- 1 xuemin csugrad 102368 Oct 11 08:50 cp.o
+-rwxr-xr-x 1 xuemin csugrad 499250 Oct 11 08:50 csplit
+-rw-r--r-- 1 xuemin csugrad  38304 Sep  1  2009 csplit.c
+-rw-r--r-- 1 xuemin csugrad 113048 Oct 11 08:50 csplit.o
+-rwxr-xr-x 1 xuemin csugrad 162308 Oct 11 08:50 cut
+-rw-r--r-- 1 xuemin csugrad  26711 Sep  1  2009 cut.c
+-rw-r--r-- 1 xuemin csugrad  84336 Oct 11 08:50 cut.o
+-rwxr-xr-x 1 xuemin csugrad 227232 Oct 11 08:50 date
+-rw-r--r-- 1 xuemin csugrad  16251 Sep  1  2009 date.c
+-rw-r--r-- 1 xuemin csugrad  72592 Oct 11 08:50 date.o
+-rwxr-xr-x 1 xuemin csugrad   1359 Sep  1  2009 dcgen
+-rwxr-xr-x 1 xuemin csugrad 199322 Oct 11 08:50 dd
+-rw-r--r-- 1 xuemin csugrad  61266 Sep 10  2009 dd.c
+-rw-r--r-- 1 xuemin csugrad 148216 Oct 11 08:50 dd.o
+-rwxr-xr-x 1 xuemin csugrad 290623 Oct 11 08:50 df
+-rw-r--r-- 1 xuemin csugrad  31130 Sep 10  2009 df.c
+-rw-r--r-- 1 xuemin csugrad 107064 Oct 11 08:50 df.o
+-rwxr-xr-x 1 xuemin csugrad 468961 Oct 11 09:31 dir
+-rwxr-xr-x 1 xuemin csugrad 113356 Oct 11 08:50 dircolors
+-rw-r--r-- 1 xuemin csugrad  12937 Sep  1  2009 dircolors.c
+-r--r--r-- 1 xuemin csugrad  17061 Sep  1  2009 dircolors.h
+-rw-r--r-- 1 xuemin csugrad   4250 Sep  1  2009 dircolors.hin
+-rw-r--r-- 1 xuemin csugrad  65816 Oct 11 08:50 dircolors.o
+-rwxr-xr-x 1 xuemin csugrad  92410 Oct 11 08:50 dirname
+-rw-r--r-- 1 xuemin csugrad   2857 Sep  1  2009 dirname.c
+-rw-r--r-- 1 xuemin csugrad  20392 Oct 11 08:50 dirname.o
+-rwxr-xr-x 1 xuemin csugrad 451746 Oct 11 08:50 du
+-rw-r--r-- 1 xuemin csugrad  30117 Sep 10  2009 du.c
+-rw-r--r-- 1 xuemin csugrad 112944 Oct 11 08:50 du.o
+-rwxr-xr-x 1 xuemin csugrad  94092 Oct 11 08:50 echo
+-rw-r--r-- 1 xuemin csugrad   7575 Sep  1  2009 echo.c
+-rw-r--r-- 1 xuemin csugrad  36920 Oct 11 08:50 echo.o
+-rwxr-xr-x 1 xuemin csugrad  87521 Oct 11 08:50 env
+-rw-r--r-- 1 xuemin csugrad   5871 Sep  1  2009 env.c
+-rw-r--r-- 1 xuemin csugrad  23576 Oct 11 08:50 env.o
+-rwxr-xr-x 1 xuemin csugrad 100810 Oct 11 08:50 expand
+-rw-r--r-- 1 xuemin csugrad  11327 Sep  1  2009 expand.c
+-rw-r--r-- 1 xuemin csugrad  48304 Oct 11 08:50 expand.o
+-rwxr-xr-x 1 xuemin csugrad 452452 Oct 11 08:50 expr
+-rw-r--r-- 1 xuemin csugrad  21332 Sep  1  2009 expr.c
+-rw-r--r-- 1 xuemin csugrad  78944 Oct 11 08:50 expr.o
+-rw-r--r-- 1 xuemin csugrad   3570 Sep  1  2009 extract-magic
+-rwxr-xr-x 1 xuemin csugrad 200003 Oct 11 08:50 factor
+-rw-r--r-- 1 xuemin csugrad  12639 Sep  1  2009 factor.c
+-rw-r--r-- 1 xuemin csugrad  65816 Oct 11 08:50 factor.o
+-rwxr-xr-x 1 xuemin csugrad  85224 Oct 11 08:50 false
+-rw-r--r-- 1 xuemin csugrad     51 Sep  1  2009 false.c
+-rw-r--r-- 1 xuemin csugrad  16928 Oct 11 08:50 false.o
+-rwxr-xr-x 1 xuemin csugrad 120345 Oct 11 08:50 fmt
+-rw-r--r-- 1 xuemin csugrad  27674 Sep  1  2009 fmt.c
+-rw-r--r-- 1 xuemin csugrad  73768 Oct 11 08:50 fmt.o
+-rwxr-xr-x 1 xuemin csugrad 106157 Oct 11 08:50 fold
+-rw-r--r-- 1 xuemin csugrad   8302 Sep  1  2009 fold.c
+-rw-r--r-- 1 xuemin csugrad  39776 Oct 11 08:50 fold.o
+-r--r--r-- 1 xuemin csugrad   2049 Sep  1  2009 fs.h
+-rwxr-xr-x 1 xuemin csugrad 189482 Oct 11 08:50 getlimits
+-rw-r--r-- 1 xuemin csugrad   5179 Sep  1  2009 getlimits.c
+-rw-r--r-- 1 xuemin csugrad  46200 Oct 11 08:50 getlimits.o
+-rwxr-xr-x 1 xuemin csugrad 482164 Oct 11 08:50 ginstall
+-rw-r--r-- 1 xuemin csugrad 139216 Oct 11 08:50 ginstall-copy.o
+-rw-r--r-- 1 xuemin csugrad  14736 Oct 11 08:50 ginstall-cp-hash.o
+-rw-r--r-- 1 xuemin csugrad 103632 Oct 11 08:50 ginstall-install.o
+-rw-r--r-- 1 xuemin csugrad   9872 Oct 11 08:50 ginstall-prog-fprintf.o
+-rw-r--r-- 1 xuemin csugrad   2842 Sep  1  2009 group-list.c
+-rw-r--r-- 1 xuemin csugrad    859 Sep  1  2009 group-list.h
+-rw-r--r-- 1 xuemin csugrad  15432 Oct 11 08:50 group-list.o
+-rwxr-xr-x 1 xuemin csugrad 101979 Oct 11 08:50 groups
+-rw-r--r-- 1 xuemin csugrad   3501 Sep  1  2009 groups.c
+-rw-r--r-- 1 xuemin csugrad  24024 Oct 11 08:50 groups.o
+-rwxr-xr-x 1 xuemin csugrad 141958 Oct 11 08:50 head
+-rw-r--r-- 1 xuemin csugrad  31641 Sep  1  2009 head.c
+-rw-r--r-- 1 xuemin csugrad 109744 Oct 11 08:50 head.o
+-rwxr-xr-x 1 xuemin csugrad  89730 Oct 11 08:50 hostid
+-rw-r--r-- 1 xuemin csugrad   2480 Sep  1  2009 hostid.c
+-rw-r--r-- 1 xuemin csugrad  17192 Oct 11 08:50 hostid.o
+-rw-r--r-- 1 xuemin csugrad   3209 Sep  1  2009 hostname.c
+-rwxr-xr-x 1 xuemin csugrad 110979 Oct 11 08:50 id
+-rw-r--r-- 1 xuemin csugrad   8962 Sep  1  2009 id.c
+-rw-r--r-- 1 xuemin csugrad  42320 Oct 11 08:50 id.o
+-rw-r--r-- 1 xuemin csugrad  30738 Sep  1  2009 install.c
+-rwxr-xr-x 1 xuemin csugrad 153779 Oct 11 08:50 join
+-rw-r--r-- 1 xuemin csugrad  29475 Sep  1  2009 join.c
+-rw-r--r-- 1 xuemin csugrad 106520 Oct 11 08:50 join.o
+-rwxr-xr-x 1 xuemin csugrad 104730 Oct 11 08:50 kill
+-rw-r--r-- 1 xuemin csugrad   9206 Sep 10  2009 kill.c
+-rw-r--r-- 1 xuemin csugrad  36704 Oct 11 08:50 kill.o
+-rw-r--r-- 1 xuemin csugrad     37 Sep  1  2009 lbracket.c
+-rw-r--r-- 1 xuemin csugrad 101312 Oct 11 08:50 lbracket.o
+-rw-r--r-- 1 xuemin csugrad   4705 Sep  1  2009 libstdbuf.c
+-rwxr-xr-x 1 xuemin csugrad  14870 Oct 11 08:50 libstdbuf.so
+-rw-r--r-- 1 xuemin csugrad  18344 Oct 11 08:50 libstdbuf_so-libstdbuf.o
+-rw-r--r-- 1 xuemin csugrad   2480 Oct 11 08:50 libver.a
+-rwxr-xr-x 1 xuemin csugrad  90099 Oct 11 08:50 link
+-rw-r--r-- 1 xuemin csugrad   2703 Sep  1  2009 link.c
+-rw-r--r-- 1 xuemin csugrad  18904 Oct 11 08:50 link.o
+-rwxr-xr-x 1 xuemin csugrad 189219 Oct 11 08:50 ln
+-rw-r--r-- 1 xuemin csugrad  20043 Sep 10  2009 ln.c
+-rw-r--r-- 1 xuemin csugrad  62416 Oct 11 08:50 ln.o
+-rwxr-xr-x 1 xuemin csugrad  89932 Oct 11 08:50 logname
+-rw-r--r-- 1 xuemin csugrad   2361 Sep  1  2009 logname.c
+-rw-r--r-- 1 xuemin csugrad  17792 Oct 11 08:50 logname.o
+-rwxr-xr-x 1 xuemin csugrad 468952 Oct 11 09:31 ls
+-rw-r--r-- 1 xuemin csugrad 144363 Oct 11 09:30 ls.c
+-rw-r--r-- 1 xuemin csugrad 144621 Sep 10  2009 ls.c.orig
+-rw-r--r-- 1 xuemin csugrad     44 Sep  1  2009 ls-dir.c
+-rw-r--r-- 1 xuemin csugrad   2104 Oct 11 08:50 ls-dir.o
+-rw-r--r-- 1 xuemin csugrad    201 Sep  1  2009 ls.h
+-rw-r--r-- 1 xuemin csugrad     37 Sep  1  2009 ls-ls.c
+-rw-r--r-- 1 xuemin csugrad   2104 Oct 11 08:50 ls-ls.o
+-rw-r--r-- 1 xuemin csugrad 509456 Oct 11 09:31 ls.o
+-rw-r--r-- 1 xuemin csugrad     46 Sep  1  2009 ls-vdir.c
+-rw-r--r-- 1 xuemin csugrad   2104 Oct 11 08:50 ls-vdir.o
+-rw-r--r-- 1 xuemin csugrad 117916 Oct 11 08:48 Makefile
+-rw-r--r-- 1 xuemin csugrad  16261 Sep 10  2009 Makefile.am
+-rw-r--r-- 1 xuemin csugrad 130167 Sep 10  2009 Makefile.in
+-rwxr-xr-x 1 xuemin csugrad 130369 Oct 11 08:50 md5sum
+-rw-r--r-- 1 xuemin csugrad  20946 Sep  1  2009 md5sum.c
+-rw-r--r-- 1 xuemin csugrad  72008 Oct 11 08:50 md5sum-md5sum.o
+-rwxr-xr-x 1 xuemin csugrad 208118 Oct 11 08:50 mkdir
+-rw-r--r-- 1 xuemin csugrad   6404 Sep  1  2009 mkdir.c
+-rw-r--r-- 1 xuemin csugrad  30824 Oct 11 08:50 mkdir.o
+-rwxr-xr-x 1 xuemin csugrad 100531 Oct 11 08:50 mkfifo
+-rw-r--r-- 1 xuemin csugrad   3879 Sep  1  2009 mkfifo.c
+-rw-r--r-- 1 xuemin csugrad  24776 Oct 11 08:50 mkfifo.o
+-rwxr-xr-x 1 xuemin csugrad 116104 Oct 11 08:50 mknod
+-rw-r--r-- 1 xuemin csugrad   7065 Sep  1  2009 mknod.c
+-rw-r--r-- 1 xuemin csugrad  34376 Oct 11 08:50 mknod.o
+-rwxr-xr-x 1 xuemin csugrad 139380 Oct 11 08:50 mktemp
+-rw-r--r-- 1 xuemin csugrad   7801 Sep  1  2009 mktemp.c
+-rw-r--r-- 1 xuemin csugrad  35136 Oct 11 08:50 mktemp.o
+-rwxr-xr-x 1 xuemin csugrad 487370 Oct 11 08:50 mv
+-rw-r--r-- 1 xuemin csugrad  15631 Sep 10  2009 mv.c
+-rw-r--r-- 1 xuemin csugrad  54776 Oct 11 08:50 mv.o
+-rwxr-xr-x 1 xuemin csugrad 106658 Oct 11 08:50 nice
+-rw-r--r-- 1 xuemin csugrad   5442 Sep  1  2009 nice.c
+-rw-r--r-- 1 xuemin csugrad  26912 Oct 11 08:50 nice.o
+-rwxr-xr-x 1 xuemin csugrad 461674 Oct 11 08:50 nl
+-rw-r--r-- 1 xuemin csugrad  16764 Sep  1  2009 nl.c
+-rw-r--r-- 1 xuemin csugrad  56384 Oct 11 08:50 nl.o
+-rwxr-xr-x 1 xuemin csugrad 106204 Oct 11 08:50 nohup
+-rw-r--r-- 1 xuemin csugrad   6938 Sep  1  2009 nohup.c
+-rw-r--r-- 1 xuemin csugrad  36152 Oct 11 08:50 nohup.o
+-rwxr-xr-x 1 xuemin csugrad 247566 Oct 11 08:50 od
+-rw-r--r-- 1 xuemin csugrad  56684 Sep  1  2009 od.c
+-rw-r--r-- 1 xuemin csugrad 191304 Oct 11 08:50 od.o
+-rw-r--r-- 1 xuemin csugrad   2499 Sep  1  2009 operand2sig.c
+-rw-r--r-- 1 xuemin csugrad    832 Sep  1  2009 operand2sig.h
+-rw-r--r-- 1 xuemin csugrad  11616 Oct 11 08:50 operand2sig.o
+-rwxr-xr-x 1 xuemin csugrad 103955 Oct 11 08:50 paste
+-rw-r--r-- 1 xuemin csugrad  15004 Sep  1  2009 paste.c
+-rw-r--r-- 1 xuemin csugrad  63648 Oct 11 08:50 paste.o
+-rwxr-xr-x 1 xuemin csugrad  99854 Oct 11 08:50 pathchk
+-rw-r--r-- 1 xuemin csugrad  12001 Sep  1  2009 pathchk.c
+-rw-r--r-- 1 xuemin csugrad  42848 Oct 11 08:50 pathchk.o
+-rwxr-xr-x 1 xuemin csugrad 120342 Oct 11 08:50 pinky
+-rw-r--r-- 1 xuemin csugrad  15308 Sep  1  2009 pinky.c
+-rw-r--r-- 1 xuemin csugrad  66368 Oct 11 08:50 pinky.o
+-rwxr-xr-x 1 xuemin csugrad 227030 Oct 11 08:50 pr
+-rw-r--r-- 1 xuemin csugrad  87335 Sep  1  2009 pr.c
+-rwxr-xr-x 1 xuemin csugrad  89285 Oct 11 08:50 printenv
+-rw-r--r-- 1 xuemin csugrad   3517 Sep  1  2009 printenv.c
+-rw-r--r-- 1 xuemin csugrad  19528 Oct 11 08:50 printenv.o
+-rwxr-xr-x 1 xuemin csugrad 208713 Oct 11 08:50 printf
+-rw-r--r-- 1 xuemin csugrad  19701 Sep  1  2009 printf.c
+-rw-r--r-- 1 xuemin csugrad  83544 Oct 11 08:50 printf.o
+-rw-r--r-- 1 xuemin csugrad 173176 Oct 11 08:50 pr.o
+-rw-r--r-- 1 xuemin csugrad   1174 Sep  1  2009 prog-fprintf.c
+-rw-r--r-- 1 xuemin csugrad    962 Sep  1  2009 prog-fprintf.h
+-rw-r--r-- 1 xuemin csugrad   9872 Oct 11 08:50 prog-fprintf.o
+-rwxr-xr-x 1 xuemin csugrad 558310 Oct 11 08:50 ptx
+-rw-r--r-- 1 xuemin csugrad  72552 Sep  1  2009 ptx.c
+-rw-r--r-- 1 xuemin csugrad 137328 Oct 11 08:50 ptx.o
+-rwxr-xr-x 1 xuemin csugrad 105099 Oct 11 08:50 pwd
+-rw-r--r-- 1 xuemin csugrad  10681 Sep  1  2009 pwd.c
+-rw-r--r-- 1 xuemin csugrad  49920 Oct 11 08:50 pwd.o
+-rwxr-xr-x 1 xuemin csugrad 146739 Oct 11 08:50 readlink
+-rw-r--r-- 1 xuemin csugrad   4851 Sep  1  2009 readlink.c
+-rw-r--r-- 1 xuemin csugrad  23752 Oct 11 08:50 readlink.o
+-rw-r--r-- 1 xuemin csugrad  61872 Sep 10  2009 remove.c
+-rw-r--r-- 1 xuemin csugrad   2970 Sep 10  2009 remove.h
+-rw-r--r-- 1 xuemin csugrad 125400 Oct 11 08:50 remove.o
+-rwxr-xr-x 1 xuemin csugrad 233202 Oct 11 08:50 rm
+-rw-r--r-- 1 xuemin csugrad  11513 Sep 10  2009 rm.c
+-rwxr-xr-x 1 xuemin csugrad 165095 Oct 11 08:50 rmdir
+-rw-r--r-- 1 xuemin csugrad   6871 Sep  1  2009 rmdir.c
+-rw-r--r-- 1 xuemin csugrad  30224 Oct 11 08:50 rmdir.o
+-rw-r--r-- 1 xuemin csugrad  36624 Oct 11 08:50 rm.o
+-rwxr-xr-x 1 xuemin csugrad  97105 Oct 11 08:50 runcon
+-rw-r--r-- 1 xuemin csugrad   8029 Sep  1  2009 runcon.c
+-rw-r--r-- 1 xuemin csugrad  37952 Oct 11 08:50 runcon.o
+-rwxr-xr-x 1 xuemin csugrad 174387 Oct 11 08:50 seq
+-rw-r--r-- 1 xuemin csugrad  12801 Sep  1  2009 seq.c
+-rw-r--r-- 1 xuemin csugrad  58952 Oct 11 08:50 seq.o
+-rwxr-xr-x 1 xuemin csugrad 110075 Oct 11 08:50 setuidgid
+-rw-r--r-- 1 xuemin csugrad   6153 Sep  1  2009 setuidgid.c
+-rw-r--r-- 1 xuemin csugrad  31488 Oct 11 08:50 setuidgid.o
+-rwxr-xr-x 1 xuemin csugrad 144297 Oct 11 08:50 sha1sum
+-rw-r--r-- 1 xuemin csugrad  72016 Oct 11 08:50 sha1sum-md5sum.o
+-rwxr-xr-x 1 xuemin csugrad 152667 Oct 11 08:50 sha224sum
+-rw-r--r-- 1 xuemin csugrad  72024 Oct 11 08:50 sha224sum-md5sum.o
+-rwxr-xr-x 1 xuemin csugrad 152667 Oct 11 08:50 sha256sum
+-rw-r--r-- 1 xuemin csugrad  72024 Oct 11 08:50 sha256sum-md5sum.o
+-rwxr-xr-x 1 xuemin csugrad 175307 Oct 11 08:50 sha384sum
+-rw-r--r-- 1 xuemin csugrad  72024 Oct 11 08:50 sha384sum-md5sum.o
+-rwxr-xr-x 1 xuemin csugrad 175307 Oct 11 08:50 sha512sum
+-rw-r--r-- 1 xuemin csugrad  72024 Oct 11 08:50 sha512sum-md5sum.o
+-rwxr-xr-x 1 xuemin csugrad 204145 Oct 11 08:50 shred
+-rw-r--r-- 1 xuemin csugrad  38375 Sep 10  2009 shred.c
+-rw-r--r-- 1 xuemin csugrad 102512 Oct 11 08:50 shred.o
+-rwxr-xr-x 1 xuemin csugrad 149929 Oct 11 08:50 shuf
+-rw-r--r-- 1 xuemin csugrad  11217 Sep  1  2009 shuf.c
+-rw-r--r-- 1 xuemin csugrad  59232 Oct 11 08:50 shuf.o
+-rwxr-xr-x 1 xuemin csugrad 107146 Oct 11 08:50 sleep
+-rw-r--r-- 1 xuemin csugrad   4022 Sep  1  2009 sleep.c
+-rw-r--r-- 1 xuemin csugrad  22024 Oct 11 08:50 sleep.o
+-rwxr-xr-x 1 xuemin csugrad 372282 Oct 11 08:50 sort
+-rw-r--r-- 1 xuemin csugrad 109304 Sep 10  2009 sort.c
+-rw-r--r-- 1 xuemin csugrad 356056 Oct 11 08:50 sort.o
+-rwxr-xr-x 1 xuemin csugrad 229101 Oct 11 08:50 split
+-rw-r--r-- 1 xuemin csugrad  16250 Sep 10  2009 split.c
+-rw-r--r-- 1 xuemin csugrad  58624 Oct 11 08:50 split.o
+-rwxr-xr-x 1 xuemin csugrad 178675 Oct 11 08:50 stat
+-rw-r--r-- 1 xuemin csugrad  30642 Sep  1  2009 stat.c
+-rw-r--r-- 1 xuemin csugrad 117336 Oct 11 08:50 stat.o
+-rwxr-xr-x 1 xuemin csugrad 262428 Oct 11 08:50 stdbuf
+-rw-r--r-- 1 xuemin csugrad  10377 Sep  1  2009 stdbuf.c
+-rw-r--r-- 1 xuemin csugrad  45032 Oct 11 08:50 stdbuf.o
+-rwxr-xr-x 1 xuemin csugrad 238372 Oct 11 08:50 stty
+-rw-r--r-- 1 xuemin csugrad  55170 Sep 10  2009 stty.c
+-rw-r--r-- 1 xuemin csugrad 158832 Oct 11 08:50 stty.o
+-rwxr-xr-x 1 xuemin csugrad 111862 Oct 11 08:50 su
+-rw-r--r-- 1 xuemin csugrad  14561 Sep  1  2009 su.c
+-rwxr-xr-x 1 xuemin csugrad 141968 Oct 11 08:50 sum
+-rw-r--r-- 1 xuemin csugrad   6589 Sep  1  2009 sum.c
+-rw-r--r-- 1 xuemin csugrad  36312 Oct 11 08:50 sum.o
+-rw-r--r-- 1 xuemin csugrad  48208 Oct 11 08:50 su.o
+-rwxr-xr-x 1 xuemin csugrad  88229 Oct 11 08:50 sync
+-rw-r--r-- 1 xuemin csugrad   2068 Sep  1  2009 sync.c
+-rw-r--r-- 1 xuemin csugrad  16600 Oct 11 08:50 sync.o
+-rw-r--r-- 1 xuemin csugrad  19734 Sep 10  2009 system.h
+-rwxr-xr-x 1 xuemin csugrad 441270 Oct 11 08:50 tac
+-rw-r--r-- 1 xuemin csugrad  20249 Sep  1  2009 tac.c
+-rw-r--r-- 1 xuemin csugrad  61880 Oct 11 08:50 tac.o
+-rw-r--r-- 1 xuemin csugrad   5992 Sep  1  2009 tac-pipe.c
+-rwxr-xr-x 1 xuemin csugrad 246458 Oct 11 08:50 tail
+-rw-r--r-- 1 xuemin csugrad  60131 Sep 10  2009 tail.c
+-rw-r--r-- 1 xuemin csugrad 212768 Oct 11 08:50 tail.o
+-rwxr-xr-x 1 xuemin csugrad  97576 Oct 11 08:50 tee
+-rw-r--r-- 1 xuemin csugrad   5758 Sep  1  2009 tee.c
+-rw-r--r-- 1 xuemin csugrad  30800 Oct 11 08:50 tee.o
+-rwxr-xr-x 1 xuemin csugrad 116277 Oct 11 08:50 test
+-rw-r--r-- 1 xuemin csugrad  22283 Sep  1  2009 test.c
+-rw-r--r-- 1 xuemin csugrad  98688 Oct 11 08:50 test.o
+-rwxr-xr-x 1 xuemin csugrad 210331 Oct 11 08:50 timeout
+-rw-r--r-- 1 xuemin csugrad  10667 Sep 10  2009 timeout.c
+-rw-r--r-- 1 xuemin csugrad  34280 Oct 11 08:50 timeout.o
+-rwxr-xr-x 1 xuemin csugrad 173565 Oct 11 08:50 touch
+-rw-r--r-- 1 xuemin csugrad  13412 Sep  1  2009 touch.c
+-rw-r--r-- 1 xuemin csugrad  47392 Oct 11 08:50 touch.o
+-rwxr-xr-x 1 xuemin csugrad 149657 Oct 11 08:50 tr
+-rw-r--r-- 1 xuemin csugrad  59038 Sep  1  2009 tr.c
+-rw-r--r-- 1 xuemin csugrad 131568 Oct 11 08:50 tr.o
+-rwxr-xr-x 1 xuemin csugrad  85223 Oct 11 08:50 true
+-rw-r--r-- 1 xuemin csugrad   2233 Sep  1  2009 true.c
+-rw-r--r-- 1 xuemin csugrad  16920 Oct 11 08:50 true.o
+-rwxr-xr-x 1 xuemin csugrad 204288 Oct 11 08:50 truncate
+-rw-r--r-- 1 xuemin csugrad  12521 Sep 10  2009 truncate.c
+-rw-r--r-- 1 xuemin csugrad  51336 Oct 11 08:50 truncate.o
+-rwxr-xr-x 1 xuemin csugrad 117238 Oct 11 08:50 tsort
+-rw-r--r-- 1 xuemin csugrad  13937 Sep  1  2009 tsort.c
+-rw-r--r-- 1 xuemin csugrad  53192 Oct 11 08:50 tsort.o
+-rwxr-xr-x 1 xuemin csugrad  87608 Oct 11 08:50 tty
+-rw-r--r-- 1 xuemin csugrad   3145 Sep  1  2009 tty.c
+-rw-r--r-- 1 xuemin csugrad  20096 Oct 11 08:50 tty.o
+-rwxr-xr-x 1 xuemin csugrad  94800 Oct 11 08:50 uname
+-rw-r--r-- 1 xuemin csugrad     48 Sep  1  2009 uname-arch.c
+-rw-r--r-- 1 xuemin csugrad  10033 Sep  1  2009 uname.c
+-rw-r--r-- 1 xuemin csugrad    146 Sep  1  2009 uname.h
+-rw-r--r-- 1 xuemin csugrad  30336 Oct 11 08:50 uname.o
+-rw-r--r-- 1 xuemin csugrad     49 Sep  1  2009 uname-uname.c
+-rw-r--r-- 1 xuemin csugrad   2128 Oct 11 08:50 uname-uname.o
+-rwxr-xr-x 1 xuemin csugrad 103288 Oct 11 08:50 unexpand
+-rw-r--r-- 1 xuemin csugrad  15390 Sep  1  2009 unexpand.c
+-rw-r--r-- 1 xuemin csugrad  56480 Oct 11 08:50 unexpand.o
+-rwxr-xr-x 1 xuemin csugrad 140050 Oct 11 08:50 uniq
+-rw-r--r-- 1 xuemin csugrad  16077 Sep  1  2009 uniq.c
+-rw-r--r-- 1 xuemin csugrad  64984 Oct 11 08:50 uniq.o
+-rwxr-xr-x 1 xuemin csugrad  89999 Oct 11 08:50 unlink
+-rw-r--r-- 1 xuemin csugrad   2490 Sep  1  2009 unlink.c
+-rw-r--r-- 1 xuemin csugrad  18352 Oct 11 08:50 unlink.o
+-rwxr-xr-x 1 xuemin csugrad 153798 Oct 11 08:50 uptime
+-rw-r--r-- 1 xuemin csugrad   6845 Sep  1  2009 uptime.c
+-rw-r--r-- 1 xuemin csugrad  34504 Oct 11 08:50 uptime.o
+-rwxr-xr-x 1 xuemin csugrad 103139 Oct 11 08:50 users
+-rw-r--r-- 1 xuemin csugrad   3701 Sep  1  2009 users.c
+-rw-r--r-- 1 xuemin csugrad  28016 Oct 11 08:50 users.o
+-rwxr-xr-x 1 xuemin csugrad 468962 Oct 11 09:31 vdir
+-r--r--r-- 1 xuemin csugrad     49 Oct 11 08:50 version.c
+-r--r--r-- 1 xuemin csugrad     28 Oct 11 08:50 version.h
+-rw-r--r-- 1 xuemin csugrad   2336 Oct 11 08:50 version.o
+-rwxr-xr-x 1 xuemin csugrad 145399 Oct 11 08:50 wc
+-rw-r--r-- 1 xuemin csugrad  23091 Sep  1  2009 wc.c
+-rw-r--r-- 1 xuemin csugrad  96296 Oct 11 08:50 wc.o
+-rwxr-xr-x 1 xuemin csugrad   2643 Sep  1  2009 wheel-gen.pl
+-r--r--r-- 1 xuemin csugrad   1878 Sep 10  2009 wheel.h
+-r--r--r-- 1 xuemin csugrad     21 Sep 10  2009 wheel-size.h
+-rwxr-xr-x 1 xuemin csugrad 188349 Oct 11 08:50 who
+-rwxr-xr-x 1 xuemin csugrad  90392 Oct 11 08:50 whoami
+-rw-r--r-- 1 xuemin csugrad   2538 Sep  1  2009 whoami.c
+-rw-r--r-- 1 xuemin csugrad  18960 Oct 11 08:50 whoami.o
+-rw-r--r-- 1 xuemin csugrad  21907 Sep  1  2009 who.c
+-rw-r--r-- 1 xuemin csugrad  73528 Oct 11 08:50 who.o
+-rwxr-xr-x 1 xuemin csugrad  88930 Oct 11 08:50 yes
+-rw-r--r-- 1 xuemin csugrad   2458 Sep  1  2009 yes.c
+-rw-r--r-- 1 xuemin csugrad  18592 Oct 11 08:50 yes.o
+   - while the buggy "ls" is still producing the old format:
+     command:
+	~/coreutilsInstall/bin/ls -l
+     output:
+total 19032
+-rwxr-xr-x 1 xuemin csugrad 130510 2016-10-11 08:54 [
+-rwxr-xr-x 1 xuemin csugrad 123601 2016-10-11 08:54 base64
+-rwxr-xr-x 1 xuemin csugrad  91264 2016-10-11 08:54 basename
+-rwxr-xr-x 1 xuemin csugrad 203778 2016-10-11 08:54 cat
+-rwxr-xr-x 1 xuemin csugrad 240724 2016-10-11 08:54 chcon
+-rwxr-xr-x 1 xuemin csugrad 228992 2016-10-11 08:54 chgrp
+-rwxr-xr-x 1 xuemin csugrad 217152 2016-10-11 08:54 chmod
+-rwxr-xr-x 1 xuemin csugrad 240340 2016-10-11 08:54 chown
+-rwxr-xr-x 1 xuemin csugrad 120686 2016-10-11 08:54 chroot
+-rwxr-xr-x 1 xuemin csugrad  97449 2016-10-11 08:54 cksum
+-rwxr-xr-x 1 xuemin csugrad 114855 2016-10-11 08:54 comm
+-rwxr-xr-x 1 xuemin csugrad 506689 2016-10-11 08:54 cp
+-rwxr-xr-x 1 xuemin csugrad 499250 2016-10-11 08:54 csplit
+-rwxr-xr-x 1 xuemin csugrad 162308 2016-10-11 08:54 cut
+-rwxr-xr-x 1 xuemin csugrad 227232 2016-10-11 08:54 date
+-rwxr-xr-x 1 xuemin csugrad 199322 2016-10-11 08:54 dd
+-rwxr-xr-x 1 xuemin csugrad 290623 2016-10-11 08:54 df
+-rwxr-xr-x 1 xuemin csugrad 469161 2016-10-11 08:54 dir
+-rwxr-xr-x 1 xuemin csugrad 113356 2016-10-11 08:54 dircolors
+-rwxr-xr-x 1 xuemin csugrad  92410 2016-10-11 08:54 dirname
+-rwxr-xr-x 1 xuemin csugrad 451746 2016-10-11 08:54 du
+-rwxr-xr-x 1 xuemin csugrad  94092 2016-10-11 08:54 echo
+-rwxr-xr-x 1 xuemin csugrad  87521 2016-10-11 08:54 env
+-rwxr-xr-x 1 xuemin csugrad 100810 2016-10-11 08:54 expand
+-rwxr-xr-x 1 xuemin csugrad 452452 2016-10-11 08:54 expr
+-rwxr-xr-x 1 xuemin csugrad 200003 2016-10-11 08:54 factor
+-rwxr-xr-x 1 xuemin csugrad  85224 2016-10-11 08:54 false
+-rwxr-xr-x 1 xuemin csugrad 120345 2016-10-11 08:54 fmt
+-rwxr-xr-x 1 xuemin csugrad 106157 2016-10-11 08:54 fold
+-rwxr-xr-x 1 xuemin csugrad 101979 2016-10-11 08:54 groups
+-rwxr-xr-x 1 xuemin csugrad 141958 2016-10-11 08:54 head
+-rwxr-xr-x 1 xuemin csugrad  89730 2016-10-11 08:54 hostid
+-rwxr-xr-x 1 xuemin csugrad 110979 2016-10-11 08:54 id
+-rwxr-xr-x 1 xuemin csugrad 482164 2016-10-11 08:54 install
+-rwxr-xr-x 1 xuemin csugrad 153779 2016-10-11 08:54 join
+-rwxr-xr-x 1 xuemin csugrad 104730 2016-10-11 08:54 kill
+-rwxr-xr-x 1 xuemin csugrad  90099 2016-10-11 08:54 link
+-rwxr-xr-x 1 xuemin csugrad 189219 2016-10-11 08:54 ln
+-rwxr-xr-x 1 xuemin csugrad  89932 2016-10-11 08:54 logname
+-rwxr-xr-x 1 xuemin csugrad 469152 2016-10-11 08:54 ls
+-rw-r--r-- 1 xuemin csugrad    932 2016-10-11 09:23 ls_patch
+-rw-r--r-- 1 xuemin csugrad    932 2016-10-11 09:17 ls_patch~
+-rwxr-xr-x 1 xuemin csugrad 130369 2016-10-11 08:54 md5sum
+-rwxr-xr-x 1 xuemin csugrad 208118 2016-10-11 08:54 mkdir
+-rwxr-xr-x 1 xuemin csugrad 100531 2016-10-11 08:54 mkfifo
+-rwxr-xr-x 1 xuemin csugrad 116104 2016-10-11 08:54 mknod
+-rwxr-xr-x 1 xuemin csugrad 139380 2016-10-11 08:54 mktemp
+-rwxr-xr-x 1 xuemin csugrad 487370 2016-10-11 08:54 mv
+-rwxr-xr-x 1 xuemin csugrad 106658 2016-10-11 08:54 nice
+-rwxr-xr-x 1 xuemin csugrad 461674 2016-10-11 08:54 nl
+-rwxr-xr-x 1 xuemin csugrad 106204 2016-10-11 08:54 nohup
+-rwxr-xr-x 1 xuemin csugrad 247566 2016-10-11 08:54 od
+-rwxr-xr-x 1 xuemin csugrad 103955 2016-10-11 08:54 paste
+-rwxr-xr-x 1 xuemin csugrad  99854 2016-10-11 08:54 pathchk
+-rwxr-xr-x 1 xuemin csugrad 120342 2016-10-11 08:54 pinky
+-rwxr-xr-x 1 xuemin csugrad 227030 2016-10-11 08:54 pr
+-rwxr-xr-x 1 xuemin csugrad  89285 2016-10-11 08:54 printenv
+-rwxr-xr-x 1 xuemin csugrad 208713 2016-10-11 08:54 printf
+-rwxr-xr-x 1 xuemin csugrad 558310 2016-10-11 08:54 ptx
+-rwxr-xr-x 1 xuemin csugrad 105099 2016-10-11 08:54 pwd
+-rwxr-xr-x 1 xuemin csugrad 146739 2016-10-11 08:54 readlink
+-rwxr-xr-x 1 xuemin csugrad 233202 2016-10-11 08:54 rm
+-rwxr-xr-x 1 xuemin csugrad 165095 2016-10-11 08:54 rmdir
+-rwxr-xr-x 1 xuemin csugrad  97105 2016-10-11 08:54 runcon
+-rwxr-xr-x 1 xuemin csugrad 174387 2016-10-11 08:54 seq
+-rwxr-xr-x 1 xuemin csugrad 144297 2016-10-11 08:54 sha1sum
+-rwxr-xr-x 1 xuemin csugrad 152667 2016-10-11 08:54 sha224sum
+-rwxr-xr-x 1 xuemin csugrad 152667 2016-10-11 08:54 sha256sum
+-rwxr-xr-x 1 xuemin csugrad 175307 2016-10-11 08:54 sha384sum
+-rwxr-xr-x 1 xuemin csugrad 175307 2016-10-11 08:54 sha512sum
+-rwxr-xr-x 1 xuemin csugrad 204145 2016-10-11 08:54 shred
+-rwxr-xr-x 1 xuemin csugrad 149929 2016-10-11 08:54 shuf
+-rwxr-xr-x 1 xuemin csugrad 107146 2016-10-11 08:54 sleep
+-rwxr-xr-x 1 xuemin csugrad 372282 2016-10-11 08:54 sort
+-rwxr-xr-x 1 xuemin csugrad 229101 2016-10-11 08:54 split
+-rwxr-xr-x 1 xuemin csugrad 178675 2016-10-11 08:54 stat
+-rwxr-xr-x 1 xuemin csugrad 262428 2016-10-11 08:54 stdbuf
+-rwxr-xr-x 1 xuemin csugrad 238372 2016-10-11 08:54 stty
+-rwxr-xr-x 1 xuemin csugrad 141968 2016-10-11 08:54 sum
+-rwxr-xr-x 1 xuemin csugrad  88229 2016-10-11 08:54 sync
+-rwxr-xr-x 1 xuemin csugrad 441270 2016-10-11 08:54 tac
+-rwxr-xr-x 1 xuemin csugrad 246458 2016-10-11 08:54 tail
+-rwxr-xr-x 1 xuemin csugrad  97576 2016-10-11 08:54 tee
+-rwxr-xr-x 1 xuemin csugrad 116277 2016-10-11 08:54 test
+-rwxr-xr-x 1 xuemin csugrad 210331 2016-10-11 08:54 timeout
+-rwxr-xr-x 1 xuemin csugrad 173565 2016-10-11 08:54 touch
+-rwxr-xr-x 1 xuemin csugrad 149657 2016-10-11 08:54 tr
+-rwxr-xr-x 1 xuemin csugrad  85223 2016-10-11 08:54 true
+-rwxr-xr-x 1 xuemin csugrad 204288 2016-10-11 08:54 truncate
+-rwxr-xr-x 1 xuemin csugrad 117238 2016-10-11 08:54 tsort
+-rwxr-xr-x 1 xuemin csugrad  87608 2016-10-11 08:54 tty
+-rwxr-xr-x 1 xuemin csugrad  94800 2016-10-11 08:54 uname
+-rwxr-xr-x 1 xuemin csugrad 103288 2016-10-11 08:54 unexpand
+-rwxr-xr-x 1 xuemin csugrad 140050 2016-10-11 08:54 uniq
+-rwxr-xr-x 1 xuemin csugrad  89999 2016-10-11 08:54 unlink
+-rwxr-xr-x 1 xuemin csugrad 153798 2016-10-11 08:54 uptime
+-rwxr-xr-x 1 xuemin csugrad 103139 2016-10-11 08:54 users
+-rwxr-xr-x 1 xuemin csugrad 469162 2016-10-11 08:54 vdir
+-rwxr-xr-x 1 xuemin csugrad 145399 2016-10-11 08:54 wc
+-rwxr-xr-x 1 xuemin csugrad 188349 2016-10-11 08:54 who
+-rwxr-xr-x 1 xuemin csugrad  90392 2016-10-11 08:54 whoami
+-rwxr-xr-x 1 xuemin csugrad  88930 2016-10-11 08:54 yes
+   - difference between running "ls" with a new file and with a file older than 1 year:
+     new file: the date format is displayed as "DATE HH:MM"; HH indicates hour, MM indicates minute
+     older file: the date format is "DATE YYYY"; YYYY indicates the year
+     
+     

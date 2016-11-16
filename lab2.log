@@ -1,0 +1,57 @@
+1) tr -c 'A-Za-z' '[\n*]'
+   output: replace each non-letter character with a line break
+   reason: "tr -c" deletes everything in the complement of set 'A-Za-z'
+
+2) tr -cs 'A-Za-z' '[\n*]'
+   output: replace consecutive non-letter characters with one single line break
+   reason: "-s" means replacing a sequence of repeated characters 
+
+3) tr -cs 'A-Za-z' '[\n*]' | sort
+   output: sort each line from previous result in alphabetical order
+   reason: "sort" without option is just sorting in alphabetical order
+   
+4) tr -cs 'A-Za-z' '[\n*]' | sort -u
+   output: sorting without duplicates (case sensitive)
+   reason: "-u" gives strict ordering, meaning there cannot be duplicates
+   
+5) tr -cs 'A-Za-z' '[\n*]' | sort -u | comm - words
+   output: 1st column - words unique to modified file
+   	   2nd column - words unique to original file
+	   3rd column - words common to both files.   
+   reason: "comm" means compare
+   	   "-" refers to stdin, which is the modified file
+	   "words" is the original file
+   
+6) tr -cs 'A-Za-z' '[\n*]' | sort -u | comm -23 - words
+   output: list all words that are unique to the modified file
+   reason: "-23" means suppressing column 2 and 3 from previous result
+
+
+
+buildwords.sh :
+sed -n 's/.*<td>\(.*\)<\/td>.*/\1/p' |
+    tr -d -s '\r' '\n' |
+    tr [:upper:] [:lower:] |
+    sed "s/\`/'/g" |
+    sed 's/<[^>]*>//g' |
+    sed 1~2d |
+    sed 's/\(.*\),\(.*\)/\1\n\2/g' |
+    grep -Ev "[^pkmnwlhaeiou']" |
+    sort -u 
+
+
+
+Hawaiian Spelling Checker :
+tr [:upper:] [:lower:] | tr -cs 'A-Za-z' '[\n*]' | sort -u | comm -23 - hwords
+
+
+# "Misspelled" Hawaiian words : 408
+# "Misspelled" English words : 38
+command to use: wc
+
+Words "misspelled" as English but not as Hawaiian:
+halau, wiki.
+Words "misspelled" as Hawaiian but not as English:
+remaining, removing, repair, etc.
+command to use: diff
+

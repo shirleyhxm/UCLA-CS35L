@@ -1,0 +1,9 @@
+sed -n 's/.*<td>\(.*\)<\/td>.*/\1/p' |
+    tr -d -s '\r' '\n' |
+    tr [:upper:] [:lower:] |
+    sed "s/\`/'/g" |
+    sed 's/<[^>]*>//g' |
+    sed 1~2d |
+    sed 's/\(.*\),\(.*\)/\1\n\2/g' |
+    grep -Ev "[^pkmnwlhaeiou']" |
+    sort -u 

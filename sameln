@@ -1,0 +1,43 @@
+export LC_ALL='C'
+OLDIFS=$IFS
+IFS='
+'
+path="`echo $(cd $(dirname $1) && pwd -P)/$(basename $1)`"
+
+find "$path" -maxdepth 1 -mindepth 1 -type f | sort > files
+
+cat files | while read i
+do
+  i="$1/$i"
+done	
+
+cat files | while read -r a
+do
+    if [ ! -r "$a" ]
+    then
+	echo "$a is not readable."
+    else	
+	cat files | while read -r b
+	do
+	    line_a=$(grep -n -F -- "$a" files | cut -d : -f 1)
+	    line_b=$(grep -n -F -- "$b" files | cut -d : -f 1)
+	    if [ $line_a  -lt  $line_b ]
+	    then
+		cmp -s -- $a $b
+		if [ $? -eq 0 ]
+		then
+	   	    if [ ! "$a" -ef "$b" ]
+		    then
+			ln $a tmp && mv tmp $b || rm tmp
+		    fi
+		elif [ $? -gt 1 ]
+		then
+		    echo "An error occurred."
+		fi
+	    fi
+	done 
+    fi
+done
+
+rm files
+IFS=$OLDIFS

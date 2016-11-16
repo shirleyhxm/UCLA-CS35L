@@ -1,0 +1,46 @@
+2. Checkout a new branch
+$ cd diffutils
+$ git checkout v3.0
+$ git checkout -b quote
+
+3. Install change
+$ patch -p1 < ../quote-3.0-patch.txt
+
+4&5. Compuse ChangeLog
+Use following commands to compose ChangeLog entries:
+$ emacs src/cmp.c
+$ C-x 4 a : Change "`"	to "'",	leaving	comments unchanged.
+Apply the above commands to all six modified files.
+
+6. Commit
+$ git add .
+$ git commit -aF ChangeLog
+
+7. Generate formatted-patch
+$ git format-patch -1 --stdout > ../formatted-patch.txt
+
+8. Check partner's patch
+Partner's name: Yiyin Jin
+Partner's uid: 604464597
+
+Move partner's patch file into the gitroot directory.
+Checkout a new branch:
+$ git stash
+$ git checkout v3.0
+$ git checkout -b partner
+Apply patch:
+$ git am < ../formatted-patch.txt
+Check:
+$ make check
+
+Result:
+Patching is successful.
+
+9. Verify ChangeLog
+Checkout to the quote branch:
+$ git stash
+$ git checkout quote
+Verify:
+$ make distdir
+
+10. See gitk-screenshot.png and gitk-description.txt

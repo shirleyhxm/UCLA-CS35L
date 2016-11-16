@@ -1,0 +1,171 @@
+Laboratory: Managing a backported change
+1. Clone repository
+$ mkdir gitroot
+$ cd gitroot
+$ git clone ~eggert/src/gnu/diffutils
+
+2. Create log file
+$ cd diffutils
+$ git log > git-log.txt
+
+3. Create tag file
+$ git tag > git-tags.txt
+
+4. Generate patch for commit
+Find the commit id:
+$ C-s maint:quote
+
+Generate patch:
+$ git format-patch -1 62ca21c8c1a5aa3488589dcb191a4ef04ae9ed4f --stdout > ../quote-patch.txt
+
+5. Checkout to a new branch
+$ git checkout v3.0 -b myDiff
+
+6. Patch
+$ patch -p1 < quote-patch.txt
+
+Problems:
+I had to skip three files (HACKING, doc/diffutils.texi, man/help2man) because files don't exist.
+
+7. Check git status
+$ git status
+
+Modified files:
+        modified:   NEWS
+    	modified:   README
+	modified:   TODO
+	modified:   doc/diagmeet.note
+	modified:   ms/config.bat
+	modified:   ms/config.site
+	modified:   po/en.po
+	modified:   src/analyze.c
+	modified:   src/cmp.c
+	modified:   src/context.c
+	modified:   src/diff.c
+	modified:   src/diff.h
+	modified:   src/diff3.c
+	modified:   src/dir.c
+	modified:   src/ifdef.c
+	modified:   src/io.c
+	modified:   src/sdiff.c
+	modified:   src/side.c
+	modified:   src/system.h
+	modified:   src/util.c
+	modified:   tests/help-version
+
+Untracked files:
+       NEWS.orig
+       README-hacking.orig
+       README-hacking.rej
+       README.orig
+       README.rej
+       cfg.mk.orig
+       cfg.mk.rej
+       git-log.txt
+       git-tags.txt
+       ms/config.site.orig
+       quote-patch.txt
+       src/cmp.c.orig
+       src/context.c.orig
+       src/diff.c.orig
+       src/diff.c.rej
+       src/diff.h.orig
+       src/diff3.c.orig
+       src/diff3.c.rej
+       src/dir.c.orig
+       src/sdiff.c.orig
+       src/system.h.orig
+       src/util.c.orig
+       tests/help-version.orig
+
+8 & 9. Revert unwanted changes
+- For each modified file that is not .c
+Go to vd-diff mode:
+$ C-x v =
+Scroll through each hunk:
+$ M-n
+Revert hunk:
+$ C-u C-c C-a
+Continue until all hunks are reverted.
+
+- For each modified file that is .c 
+Use the same commands above to revert all hunks applied to comments.
+Ignore hunks that are not applied to comments.
+
+10. Apply rejected patches
+Open each .rej file and its corresponding .c file
+Go to the line in .c file where each hunk in .rej file indicates
+Manually search for the line to be modified
+Then apply the change
+
+11. Remove unwanted files
+Remove .rej files:
+$ find . -name '*.rej' -delete
+Remove .orig files:
+$ find . -name '*.orig' -delete
+
+12. Check git staus
+$ git status
+
+I have three untracked files existing under diffutils:
+git-log.txt
+git-tags.txt
+quote-patch.txt
+
+And 6 modified files:
+src/cmp.c
+src/diff.c
+src/diff3.c
+src/dir.c
+src/sdiff.c
+src/util.c
+
+Create patch:
+$ git diff > quote-3.0-patch.txt
+
+To check number of lines:
+$ wc < quote-3.0-patch.txt
+Line count: 326
+
+13. Build modified version of Diffutils
+Run following commands:
+$ ./bootstrap
+$ ./configure
+$ make
+$ make check
+
+Verify modified version:
+$ diff . -
+I got output:
+"diff: cannot compare '-' to a directory"
+which has the correct apostrophe.
+
+14. Sanity test
+Go back to the gitroot directory:
+$ cd ..
+
+Create directories:
+$ mkdir diffutils-3.0
+$ mkdir diffutils-3.0-patch
+
+Copy modified source code:
+$ cp diffutils/src/*.c diffutils-3.0-patch
+
+Checkout out into the original version:
+$ cd diffutils
+$ git stash
+$ git checkout
+
+Copy original source code:
+$ cp diffutils/src/*.c diffutils-3.0
+
+Run modified diff:
+$ cd diffutils
+$ git checkout v3.0
+$ cd ..
+$ diffutils/src/diff -pru diffutils-3.0 diffutils-3.0-patch > quote-3.0-test.txt
+
+15. Compare two patches
+$ diff quote-3.0-test.txt quote-3.0-patch.txt
+
+The two files are not identical, but the differences are innocuous.

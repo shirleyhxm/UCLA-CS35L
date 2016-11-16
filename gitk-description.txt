@@ -1,0 +1,17 @@
+Upper-left window:
+Displaying all merges and nodes with brief descriptions of each stage.
+
+Upper-middle window:
+Displaying the person who managed the corresponding change with his/her email address.
+
+Upper-right window:
+Displaying the date and time of the corresponding change.
+
+Middle-left window:
+Detailed descriptions of the selected change.
+
+Bottom-left window:
+The source code of the selected change.
+
+Bottom-right:
+Comments.

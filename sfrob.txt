@@ -1,0 +1,71 @@
+1. Compare performance between sfrob and sfrobu
+Use TextEdit to generate multiple lines of the example given in the spec:
+'*~BO *{_CIA *hXE]D *LER #@_GZY #E\\OX #^BO #FKPS #NEM\4' * N,
+N = number of lines.
+
+Use the following commands for measuring time of each program:
+$ time ./sfrob < r100.txt > output_b
+$ time ./sfrobu < r100.txt > output_u
+
+-----------------------------------------------
+| N	version	|  real	  |  user   |   sys   |
++---------------+---------+---------+---------+
+|100	sfrob	|0m0.005s |0m0.001s |0m0.001s |
+|	sfrobu  |0m0.010s |0m0.003s |0m0.005s |
++---------------+---------+---------+---------+
+|1000	sfrob   |0m0.016s |0m0.013s |0m0.000s |
+|	sfrobu  |0m0.064s |0m0.006s |0m0.055s |
++---------------+---------+---------+---------+
+|10000	sfrob   |0m0.096s |0m0.086s |0m0.004s |
+|	sfrobu  |0m0.633s |0m0.097s |0m0.529s |
++---------------+---------+---------+---------+
+|100000	sfrob	|0m1.135s |0m1.029s |0m0.030s |
+|	sfrobu	|0m6.373s |0m1.193s |0m5.133s |
++---------------+---------+---------+---------+
+|1000000 sfrob	|0m13.609s|0m12.778s|0m0.314s |
+|	 sfrobu	|1m4.955s |0m13.852s|0m50.617s|
+-----------------------------------------------
+
+From the comparisons shown above, we can see that unbuffered version takes
+about 2 to 6 times longer (real time) than the buffered version depending
+on the size of input.
+
+2. Estimate the number of comparisons as a function of input size
+sfrobu:
+--------------------
+| N	|comparison|
++-------+----------+
+|100	|6451	   |
+|1000	|88808	   |
+|10000	|1140594   |
+|100000 |13922941  |
+|1000000|163617816 |
+--------------------
+
+Using linear regression, the number of comparisons (y) as a function of the
+number of input lines (x) is y=164.171x-726703.
+
+3. Compare overall performance of three programs
+I used the same files mentioned in No.1 to do the following comparisons.
+
+-----------------------------------------------
+| N	version	|  real	  |  user   |   sys   |
++---------------+---------+---------+---------+
+|10	sfrob	|0m0.003s |0m0.000s |0m0.002s |
+|	sfrobu  |0m0.004s |0m0.000s |0m0.002s |
+|	sfrobs  |0m0.012s |0m0.003s |0m0.005s |
++---------------+---------+---------+---------+
+|1000	sfrob   |0m0.016s |0m0.013s |0m0.001s |
+|	sfrobu  |0m0.066s |0m0.008s |0m0.055s |
+|	sfrobs	|0m0.016s |0m0.006s |0m0.005s |
++---------------+---------+---------+---------+
+|1000000 sfrob	|0m14.396s|0m13.535s|0m0.356s |
+|	 sfrobu	|1m7.462s |0m15.256s|0m51.726s|
+|	 sfrobs	|0m4.027s |0m3.355s |0m0.313s |
+-----------------------------------------------
+
+We can see from the table that the size of input has less impact on the
+performance of sfrobs than that on sfrob and sfrobu. As the size of input
+increases, the advantage in performance of sfrobs becomes more obvious. And
+as we have analyzed previously, the performance of sfrobu is heavily
+dependent on the size of input, and sfrobu always takes the longest time.

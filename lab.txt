@@ -1,0 +1,105 @@
+1&2. Write C program
+$ gcc -std=c99 -o tr2b tr2b.c
+$ gcc -std=c99 -o tr2u tr2u.c
+
+3. Use strace to compare system calls
+I used TextEdit to create a bigfile containing 5598926 a's.
+(a) copying one file to another
+$ strace -c ./tr2b 'x' 'y' < bigfile > strace_tr2b
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000012           1        10           mmap
+  0.00    0.000000           0        88           read
+  0.00    0.000000           0        86           write
+  0.00    0.000000           0         2           open
+  0.00    0.000000           0         2           close
+  0.00    0.000000           0         4           fstat
+  0.00    0.000000           0         3           mprotect
+  0.00    0.000000           0         1           munmap
+  0.00    0.000000           0         1           brk
+  0.00    0.000000           0         1         1 access
+  0.00    0.000000           0         1           execve
+  0.00    0.000000           0         1           arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000012                   200         1 total
+
+$ strace -c ./tr2u 'x' 'y' < bigfile > strace_tr2u
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 57.47    0.947596           0   5598926           write
+ 42.53    0.701214           0   5598928           read
+  0.00    0.000000           0         2           open
+  0.00    0.000000           0         2           close
+  0.00    0.000000           0         2           fstat
+  0.00    0.000000           0         8           mmap
+  0.00    0.000000           0         3           mprotect
+  0.00    0.000000           0         1           munmap
+  0.00    0.000000           0         1           brk
+  0.00    0.000000           0         1         1 access
+  0.00    0.000000           0         1           execve
+  0.00    0.000000           0         1           arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    1.648810              11197876         1 total
+
+tr2u invokes much more system calls than tr2b.
+
+(b) copying a file to terminal
+$ strace -c ./tr2b 'x' 'y' < bigfile
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 69.12    0.000376           0      5468           write
+ 17.28    0.000094          24         4           fstat
+ 13.60    0.000074           1        88           read
+  0.00    0.000000           0         2           open
+  0.00    0.000000           0         2           close
+  0.00    0.000000           0        10           mmap
+  0.00    0.000000           0         3           mprotect
+  0.00    0.000000           0         1           munmap
+  0.00    0.000000           0         1           brk
+  0.00    0.000000           0         1         1 access
+  0.00    0.000000           0         1           execve
+  0.00    0.000000           0         1           arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    0.000544                  5582         1 total
+
+$ strace -c ./tr2u 'x' 'y' < bigfile
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ----------------
+ 55.97    0.572581           0   5598926           write
+ 44.03    0.450414           0   5598928           read
+  0.00    0.000000           0         2           open
+  0.00    0.000000           0         2           close
+  0.00    0.000000           0         2           fstat
+  0.00    0.000000           0         8           mmap
+  0.00    0.000000           0         3           mprotect
+  0.00    0.000000           0         1           munmap
+  0.00    0.000000           0         1           brk
+  0.00    0.000000           0         1         1 access
+  0.00    0.000000           0         1           execve
+  0.00    0.000000           0         1           arch_prctl
+------ ----------- ----------- --------- --------- ----------------
+100.00    1.022995              11197876         1 total
+
+tr2u still invokes much more system calls than tr2b. In addition,
+for tr2b, copying a file to terminal uses more system calls than
+copying the same file to another file. For tr2u, copying a file
+to terminal uses the same number of system calls as copying the
+file to another file.
+
+4. Measure time
+I used to same bigfile to test time.
+
+$ time ./tr2b 'x' 'y' < bigfile > time_tr2b
+
+real   0m0.269s
+user   0m0.202s
+sys    0m0.012s
+
+$ time ./tr2u 'x' 'y' < bigfile > time_tr2u
+
+real   0m5.718s
+user   0m0.475s
+sys    0m5.193s
+
+tr2u takes a lot longer compared to tr2b, since tr2u invokes much
+more system calls.

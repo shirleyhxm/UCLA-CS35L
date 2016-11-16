@@ -1,0 +1,108 @@
+Exercise 1.1: Moving around in Emacs
+2. C-s public ENTER ENTER
+3. C-s laboratory ENTER
+   M-b
+4. C-s self-referential ENTER
+   M-b
+5. C-s arrow ENTER
+   M-b
+6. C-e
+7. C-a
+10.C-x C-c y
+
+
+
+Exercise 1.2: Deleting text in Emacs
+2. M-g M-g 18 ENTER
+   C-k
+3. C-s deleteme deleteme deleteme ENTER
+   C-k
+4. C-s https://en.wikipedia.org/wiki/HTML_comment#Comments ENTER
+5. C-s <!-- ENTER   
+
+
+Exercise 1.3: Inserting text in Emacs
+2. C-s Assignment 1 ENTER
+   BACKSPACE BACKSPACE 37
+   C-s Assignment 1 ENTER
+   BACKSPACE BACKSPACE 37
+3. M-<
+   C-s UTF-8 ENTER
+   BACKSPACE BACKSPACE BACKSPACE BACKSPACE S-ASCII
+4. C-s </ol> ENTER
+   C-a
+   C-o
+5. C-x C-c y
+
+
+
+
+Exercise 1.4: Other editing tasks in Emacs
+1. cat exer2.html exer2.diff >exer4.html 
+3. (copy comment <!-- Chinese --> from diff with C-SP & M-w)
+   C-s Laboratory Enter
+   C-r C-r C-r
+   DOWN DOWN
+   C-y
+
+  (copy comment <!-- DELETEME... --> from diff with C-SP & M-w)
+   C-s Homework: Learning to use Emacs Enter
+   C-r C-r C-r
+   DOWN DOWN
+   C-y
+
+   (select & copy the 3rd comment from diff)
+   C-s submit
+   C-r C-r C-r C-r
+   DOWN DOWN
+   C-y
+
+   (select & copy the comment <!----> from diff by using C-SP & M-w)
+   C-s log lines Enter
+   C-r C-r C-r
+   ENTER
+   C-y
+5. (select the last part of the file by using C-SP)
+   C-w
+6. C-y
+8. M-<
+   C-s <ol>
+   C-s M-% <Ol> Enter !
+   There are 7 instances in total.
+
+   
+
+Exercise 1.5
+1. cd
+   mkdir junk
+   cd junk
+   emacs hello.c
+3. M-x compile
+   Backspace Backspace Backspace Backspace Backspace Backspace Backspace
+   gcc hello.c -o hello Enter
+   ./hello Enter
+4. (select output by using C-SP and arrow keys)
+   M-x
+   C-x b hello-out ENTER
+   C-y
+5. C-x h
+   M-x append-to-file ENTER
+   ans1.txt    
+
+
+
+Exercise 1.6: Running Elisp code
+1. emacs
+   C-x b *scratch* ENTER
+2. (setq a (random))
+   C-j 
+3. (setq x (random)) C-j
+   (setq y (random)) C-j
+4. (* x y) C-j
+5. No difference in terms of the resulted product,
+   but there are brackets with two new sequences following the result.
+6. No. The integers are always 18-bit.
+7. The probability is 1/2.
+   The product will not overflow only when x and y have different signs.
+   Of all random numbers, negative numbers and positive numbers both take up about half,
+   so the probability that x and y have different signs is 1/2.  

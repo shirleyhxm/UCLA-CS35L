@@ -1,0 +1,54 @@
+Laboratory: Linux and Emacs scavenger hunt
+1. man -K (word)
+2. /bin/cp/
+   /usr/bin/wc/
+3. find /usr/bin/ -executable
+   find -name '?'  
+   ./w --
+   ./[ -- (their functions can be looked up by using "man ./[")
+   ./X -- 
+4. emacs
+5. man chmod
+   g+s: set other users in the file's group on execution
+   o-x: change the access of other users not in the file's group to be non-executable
+6. find -mtime -21
+7. find -mtime -21 -type d
+8. find -type l | wc -l
+   352
+9. ls -lt
+   libgamin-1.so.0.1.10
+10. man locale
+    The current locale environment for each locale category defined by the LC_* environment variables.
+11.C-h ? F sort RET
+   sort-columns              sort-fields               sort-lines
+   sort-numeric-fields       sort-pages                sort-paragraphs
+   sort-regexp-fields
+12.C-h k (keystroke)
+   C-M-a -- backward function
+   C-M-b -- backward sexp
+   C-M-c --
+   C-M-d --
+   C-M-e -- forward function
+   C-M-f -- forward sexp
+   C-M-g --
+   C-M-h -- mark function
+13.abort partially typed or executing command
+14.C-h ? f yank RET
+   Reinsert ("paste") the last stretch of killed text. More precisely, reinsert the stretch of killed text most recently killed OR yanked.  Put point at end, and set mark at beginning.
+15.exactly the same
+
+
+
+Exercise 1.5: Doing commands in Emacs
+
+#include <stdio.h>
+int
+main (void)
+{
+  char n = '\n';
+  char b = '\\';
+  char q = '"';
+  char const *p = "#include <stdio.h>%cint%cmain (void)%c{%c  char n = '%cn';%c  char b = '%c%c';%c  char q = '%c';%c  char const *p = %c%s%c;%c  printf (p, n, n, n, n, b, n, b, b, n, q, n, q, p, q, n, n, n, n);%c  return 0;%c}%c";
+  printf (p, n, n, n, n, b, n, b, b, n, q, n, q, p, q, n, n, n, n);
+  return 0;
+}

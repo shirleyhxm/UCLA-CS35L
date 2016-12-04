@@ -1,0 +1,71 @@
+// Xuemin He
+// Lab partners: Taoran, Uma
+
+0. Environment Setup
+Reboot -> Try Ubuntu -> Open Terminal
+$ dpkg --get-selections | grep openssh
+  openssh-client     install
+$ sudo apt-get update
+$ sudo apt-get install openssh-server
+$ dpkg —get-selections | grep openssh
+  openssh-server     install
+  openssh-client     install
+
+======================================
+As a server
+======================================
+
+1. Generate public key
+$ ssh-keygen
+Use default location.
+Enter public key: password
+
+2. Set up client accounts
+Client 1:
+$ sudo useradd -d /home/uma -m uma
+$ sudo passwd uma
+$ cd /home/uma
+$ sudo mkdir .ssh
+$ sudo chown -R uma .ssh
+$ sudo chmod 700 .ssh
+
+Client 2:
+$ sudo useradd -d /home/taoran -m taoran
+$ sudo passwd taoran
+$ cd /home/taoran
+$ sudo mkdir .ssh
+$ sudo chown -R taoran .ssh
+$ sudo chmod 700 .ssh
+
+3. Get ip address
+$ hostname -I
+10.0.2.15
+
+======================================
+As a client
+======================================
+
+1. Generate private key
+$ ssh-keygen
+Use default location.
+Enter default passphrase.
+
+2. Key-based authentication
+$ ssh-copy-id -i shirley@10.0.2.15
+Enter public key: password
+
+3. Add private key to ssh-agent
+$ ssh-add
+Enter passphrase: 1234
+
+4. SSH to server
+$ ssh shirley@10.0.2.15
+I successfully logged in.
+Then exit:
+$ exit
+
+5. Run a command on the remote host
+$ ssh -X shirley@10.0.2.15
+$ xterm
+$ firefox
+Both worked.

@@ -11,7 +11,6 @@ Grade Distribution:
  * Assignment 6  99/100   
  * Assignment 7  85/100   
  * Assignment 8  99/100   
- * Assignment 9  95/100   
+ * Assignment 9  95/100  
  * Assignment 10 93.5/100
-  
  * Final Grade A

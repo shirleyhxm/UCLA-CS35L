@@ -3,8 +3,8 @@
 Lab solutions for CS35L Fall 2016, contributed by Shirley Xuemin He.
 
 Grade Distribution:
-   Assignment 1  86.5/100
-   Assignment 2  84/100
+Assignment 1  86.5/100
+Assignment 2  84/100
   Assignment 3  89/100
   Assignment 4  96.5/100
   Assignment 5  93/100
